@@ -1,4 +1,4 @@
-  @extends('layouts.dashboard')
+  @extends('dashboard.layouts.dashboard')
   @section('title', 'Dashboard')
   @section('breadcrumb')
   @parent
@@ -69,6 +69,4 @@
       </div><!-- /.container-fluid -->
     </div>
     <!-- /.content -->
-  </div>
-  <!-- /.content-wrapper -->
 @endsection
