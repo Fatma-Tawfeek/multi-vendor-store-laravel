@@ -6,6 +6,7 @@ use App\Models\Category;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 
 class CategoryController extends Controller
 {
@@ -24,7 +25,8 @@ class CategoryController extends Controller
     public function create()
     {
         $categories = Category::all();
-        return view('dashboard.categories.create', compact('categories'));
+        $category = new Category();
+        return view('dashboard.categories.create', compact('categories', 'category'));
     }
 
     /**
@@ -36,7 +38,10 @@ class CategoryController extends Controller
             'slug' => Str::slug($request->name)
         ]);
 
-        Category::create($request->all());
+        $data = $request->except('image');
+        $data['image'] = $this->uploadImage($request);
+
+        Category::create($data);
 
         return redirect()->route('dashboard.categories.index')->with('success', 'Category created successfully');
     }
@@ -70,7 +75,13 @@ class CategoryController extends Controller
     public function update(Request $request, string $id)
     {
         $category = Category::findOrFail($id);
-        $category->update($request->all());
+        $old_image = $category->image;
+        $data = $request->except('image');
+        $data['image'] = $this->uploadImage($request);
+        $category->update($data);
+        if ($old_image && $data['image']) {
+            Storage::disk('public')->delete($old_image);
+        }
         return redirect()->route('dashboard.categories.index')->with('success', 'Category updated successfully');
     }
 
@@ -81,6 +92,19 @@ class CategoryController extends Controller
     {
         $category = Category::findOrFail($id);
         $category->delete();
+        if ($category->image) {
+            Storage::disk('public')->delete($category->image);
+        }
         return redirect()->route('dashboard.categories.index')->with('success', 'Category deleted successfully');
+    }
+
+    protected function uploadImage(Request $request)
+    {
+        if (!$request->hasFile('image')) {
+            return;
+        }
+        $file = $request->file('image');
+        $path = $file->store('uploads', 'public'); // store('folder', 'disk')
+        return $path;
     }
 }

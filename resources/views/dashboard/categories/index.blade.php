@@ -43,7 +43,11 @@
                             @forelse ($categories as $cat)
                             <tr>
                                 <td>{{ $cat->id }}</td>
-                                <td><img src="{{ $cat->image }}" width="50" alt=""></td>
+                                <td>
+                                  @if ($cat->image)
+                                  <img src="{{ asset( 'storage/' . $cat->image) }}" height="50" alt="">
+                                  @endif
+                                </td>
                                 <td>{{ $cat->name }}</td>
                                 <td>{{ $cat->parent_id }}</td>
                                 <td>{{ $cat->created_at }}</td>
