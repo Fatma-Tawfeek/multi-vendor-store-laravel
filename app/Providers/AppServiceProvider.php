@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Rules\Filter;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Validator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,6 +21,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Validator::extend('filter', function ($attribute, $value, $params) {
+            return !in_array(strtolower($value), $params);
+        }, 'The :attribute field is not allowed.');
     }
 }

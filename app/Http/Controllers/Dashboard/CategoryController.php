@@ -25,8 +25,7 @@ class CategoryController extends Controller
     public function create()
     {
         $categories = Category::all();
-        $category = new Category();
-        return view('dashboard.categories.create', compact('categories', 'category'));
+        return view('dashboard.categories.create', compact('categories'));
     }
 
     /**
@@ -34,6 +33,8 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate(Category::rules());
+
         $request->merge([
             'slug' => Str::slug($request->name)
         ]);
@@ -74,12 +75,24 @@ class CategoryController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $request->validate([
+            'name' => 'required|string|min:3|max:255|unique:categories,name,' . $id,
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'parent_id' => 'nullable|integer|exists:categories,id',
+            'status' => 'required|in:active,archived',
+        ]);
+
         $category = Category::findOrFail($id);
         $old_image = $category->image;
+
         $data = $request->except('image');
-        $data['image'] = $this->uploadImage($request);
+        $new_image = $this->uploadImage($request);
+        if ($new_image) {
+            $data['image'] = $new_image;
+        }
         $category->update($data);
-        if ($old_image && $data['image']) {
+
+        if ($old_image && $new_image) {
             Storage::disk('public')->delete($old_image);
         }
         return redirect()->route('dashboard.categories.index')->with('success', 'Category updated successfully');
