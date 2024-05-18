@@ -12,13 +12,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
-                @if(session('success'))
-                    <div class="alert alert-success alert-dismissible">
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                        <h5><i class="icon fas fa-check"></i> Success!</h5>
-                        {{ session('success') }}
-                    </div>                    
-                @endif
+              <x-alert />  
                 <div class="card">
                     <div class="card-header">
                       <h3 class="card-title">Categories List</h3>

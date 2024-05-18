@@ -235,7 +235,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
       </div>
 
       <!-- Sidebar Menu -->
-      @include('dashboard.layouts.partials.nav')
+      {{-- @include('dashboard.layouts.partials.nav') --}}
+      <x-nav />
       <!-- /.sidebar-menu -->
     </div>
     <!-- /.sidebar -->

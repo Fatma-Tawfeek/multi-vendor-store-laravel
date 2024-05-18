@@ -23,21 +23,21 @@
                   @csrf
                   <div class="card-body">
                       @if($errors->any())
-                        <div class="alert alert-danger mt-2" role="alert">
+                      <div class="alert alert-danger mt-2" role="alert">
                           <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                           <h5><i class="icon fas fa-ban"></i> Error!</h5>
                           @foreach($errors->all() as $error)
                           @if($errors->count() > 0)
                           <ul>
-                            <li>{{ $error }}</li>
+                          <li>{{ $error }}</li>
                           </ul>
                           @endif
                           @endforeach
-                        </div>    
+                      </div>    
                       @endif
                       <div class="form-group">
                         <label>Name</label>
-                        <input type="text" class="form-control" name="name" placeholder="Enter name" value="{{ old('name') }}">
+                        <x-form.input  name="name" :value="old('name')" class="form-control"/>
                       </div>
                       <div class="form-group">
                         <label for="exampleSelectRounded0">Parent Category</label>
