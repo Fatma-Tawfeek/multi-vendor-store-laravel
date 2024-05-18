@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Category extends Model
 {
@@ -43,5 +44,33 @@ class Category extends Model
     public function parent()
     {
         return $this->belongsTo(Category::class, 'parent_id');
+    }
+
+    public function scopeActive(Builder $builder)
+    {
+        return $builder->where('status', 'active');
+    }
+
+    public function scopeStatus(Builder $builder, $status)
+    {
+        return $builder->where('status', $status);
+    }
+
+    public function scopeFilter(Builder $builder, $filters)
+    {
+        // if ($filters['name'] ?? false) {
+        //     $builder->where('name', 'like', '%' . $filters['name'] . '%');
+        // }
+        // if ($filters['status'] ?? false) {
+        //     $builder->where('status', $filters['status']);
+        // }
+
+        $builder->when($filters['name'] ?? false, function ($builder, $name) {
+            $builder->where('name', 'like', '%' . $name . '%');
+        });
+
+        $builder->when($filters['status'] ?? false, function ($builder, $status) {
+            $builder->where('status', $status);
+        });
     }
 }

@@ -16,13 +16,11 @@ class CategoryController extends Controller
     public function index(Request $request)
     {
         $query = Category::query();
-        if ($request->name) {
-            $query->where('name', 'like', '%' . $request->name . '%');
-        }
-        if ($request->status) {
-            $query->where('status', $request->status);
-        }
-        $categories = $query->paginate(1); // return collection
+        // $categories = $query->paginate(1); // return collection
+        // $categories = Category::status('archived')->paginate();
+        $categories = Category::filter($request->query())
+            ->latest()
+            ->paginate();
         return view('dashboard.categories.index', compact('categories'));
     }
 
