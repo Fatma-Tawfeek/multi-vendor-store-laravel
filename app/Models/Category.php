@@ -39,4 +39,9 @@ class Category extends Model
             'status' => 'required|in:active,archived',
         ];
     }
+
+    public function parent()
+    {
+        return $this->belongsTo(Category::class, 'parent_id');
+    }
 }
