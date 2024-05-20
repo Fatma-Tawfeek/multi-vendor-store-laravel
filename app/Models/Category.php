@@ -29,7 +29,7 @@ class Category extends Model
                 'min:3',
                 'max:255',
                 'filter:php,laravel',
-                // 'unique:categories,name',
+                'unique:categories,name',
                 // function ($attribute, $value, $fail) {
                 //     if (strtolower($value) === 'laravel') {
                 //         $fail('This name is not allowed');

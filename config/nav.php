@@ -11,5 +11,10 @@ return [
         'route' => 'dashboard.categories.index',
         'title' => 'Categories',
         'badge' => 'New',
+    ],
+    [
+        'title' => 'Products',
+        'icon' => 'nav-icon fas fa-boxes',
+        'route' => 'dashboard.products.index',
     ]
 ];

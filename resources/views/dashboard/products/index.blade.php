@@ -1,10 +1,10 @@
 @extends('dashboard.layouts.dashboard')
 
-@section('title', 'Categories')
+@section('title', 'Products')
 
 @section('breadcrumb')
 @parent
-<li class="breadcrumb-item active">Categories</li>
+<li class="breadcrumb-item active">Products</li>
 @endSection
 
 @section('content')
@@ -26,10 +26,9 @@
               </form>
                 <div class="card">
                     <div class="card-header">
-                      <h3 class="card-title">Categories</h3>
+                      <h3 class="card-title">Products</h3>
                       <div class="float-right">
-                        <a href="{{ route('dashboard.categories.create') }}" class="btn btn-primary">Add Category</a>
-                        <a href="{{ route('dashboard.categories.trash') }}" class="btn btn-danger"> <i class="fas fa-trash"></i> Trash</a>
+                        <a href="{{ route('dashboard.products.create') }}" class="btn btn-primary">Add Product</a>
                     </div>
                     </div>
                     <!-- /.card-header -->
@@ -40,35 +39,39 @@
                             <th style="width: 10px">#</th>
                             <th>Image</th>
                             <th>Name</th>
-                            <th>Parent</th>
-                            <th>Created At</th>
+                            <th>Category</th>
+                            <th>Store</th>
+                            <th>Price</th>
                             <th>Status</th>
                             <th>Action</th>
                           </tr>
                         </thead>
                         <tbody>
-                            @forelse ($categories as $key => $cat)
+                            @forelse ($products as $key => $product)
                             <tr>
-                                <td>{{ $categories->firstItem() + $key }}</td>
+                                <td>{{ $products->firstItem() + $key }}</td>
                                 <td>
-                                  @if ($cat->image)
-                                  <img src="{{ asset( 'storage/' . $cat->image) }}" height="50" alt="">
+                                  @if ($product->image)
+                                  <img src="{{ asset( 'storage/' . $product->image) }}" height="50" alt="">
                                   @endif
                                 </td>
-                                <td>{{ $cat->name }}</td>
-                                <td>{{ $cat->parent->name ?? 'N/A' }}</td>
-                                <td>{{ $cat->created_at }}</td>
+                                <td>{{ $product->name }}</td>
+                                <td>{{ $product->category_id }}</td>
+                                <td>{{ $product->store_id }}</td>
+                                <td>{{ $product->price }}</td>
                                 <td>
-                                    @if ($cat->status == 'active')
+                                    @if ($product->status == 'active')
                                         <span class="badge badge-success">Active</span>
+                                    @elseif($condition == 'draft')
+                                        <span class="badge badge-warning">Draft</span>
                                     @else
                                         <span class="badge badge-danger">Archived</span>
                                     @endif
                                 </td>
                                 <td> 
                                     <div class="btn-group">
-                                        <a href="{{ route('dashboard.categories.edit', $cat->id) }}" class="btn btn-primary mr-2">Edit</a>
-                                        <form action="{{ route('dashboard.categories.destroy', $cat->id) }}" method="post">
+                                        <a href="{{ route('dashboard.products.edit', $product->id) }}" class="btn btn-primary mr-2">Edit</a>
+                                        <form action="{{ route('dashboard.products.destroy', $product->id) }}" method="post">
                                             @csrf
                                             @method('delete')
                                             <button type="submit" class="btn btn-danger">Delete</button>
@@ -78,7 +81,7 @@
                             </tr>      
                             @empty
                                 <tr>
-                                    <td colspan="6">No categories found.</td>
+                                    <td colspan="6">No products found.</td>
                                 </tr>                          
                             @endforelse                          
                         </tbody>
@@ -93,7 +96,7 @@
                         <li class="page-item"><a class="page-link" href="#">3</a></li>
                         <li class="page-item"><a class="page-link" href="#">»</a></li>
                       </ul> --}}
-                      {{ $categories->withQueryString()->links() }}
+                      {{ $products->withQueryString()->links() }}
                     </div>
                   </div>
             </div>
