@@ -16,9 +16,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
   <style>
-    .btn-group>.btn-group:not(:last-child)>.btn, .btn-group>.btn:not(:last-child):not(.dropdown-toggle) {
-      border-top-right-radius: 4px;
-      border-bottom-right-radius: 4px;
+    .btn {
+      border-radius: 4px !important;
     }
   </style>
   @stack('styles')

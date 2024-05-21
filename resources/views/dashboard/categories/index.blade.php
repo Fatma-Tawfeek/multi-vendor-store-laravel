@@ -43,6 +43,7 @@
                             <th>Parent</th>
                             <th>Created At</th>
                             <th>Status</th>
+                            <th>Products #</th>
                             <th>Action</th>
                           </tr>
                         </thead>
@@ -65,6 +66,7 @@
                                         <span class="badge badge-danger">Archived</span>
                                     @endif
                                 </td>
+                                <td>{{ $cat->products_count }}</td>
                                 <td> 
                                     <div class="btn-group">
                                         <a href="{{ route('dashboard.categories.edit', $cat->id) }}" class="btn btn-primary mr-2">Edit</a>
@@ -73,12 +75,13 @@
                                             @method('delete')
                                             <button type="submit" class="btn btn-danger">Delete</button>
                                         </form>
+                                        <a href="{{ route('dashboard.categories.show', $cat->id) }}" class="btn btn-info ml-2"> Show</a>
                                     </div>
                                 </td>
                             </tr>      
                             @empty
                                 <tr>
-                                    <td colspan="6">No categories found.</td>
+                                    <td colspan="8">No categories found.</td>
                                 </tr>                          
                             @endforelse                          
                         </tbody>
@@ -86,13 +89,6 @@
                     </div>
                     <!-- /.card-body -->
                     <div class="card-footer clearfix">
-                      {{-- <ul class="pagination pagination-sm m-0 float-right">
-                        <li class="page-item"><a class="page-link" href="#">«</a></li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item"><a class="page-link" href="#">»</a></li>
-                      </ul> --}}
                       {{ $categories->withQueryString()->links() }}
                     </div>
                   </div>

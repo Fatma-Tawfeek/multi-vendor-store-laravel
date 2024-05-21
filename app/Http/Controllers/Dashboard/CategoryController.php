@@ -18,7 +18,9 @@ class CategoryController extends Controller
         $query = Category::query();
         // $categories = $query->paginate(1); // return collection
         // $categories = Category::status('archived')->paginate();
-        $categories = Category::filter($request->query())
+        $categories = Category::with('parent')
+            ->withCount('products')
+            ->filter($request->query())
             ->latest()
             ->paginate();
         return view('dashboard.categories.index', compact('categories'));
@@ -55,9 +57,9 @@ class CategoryController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Category $category)
     {
-        //
+        return view('dashboard.categories.show', compact('category'));
     }
 
     /**

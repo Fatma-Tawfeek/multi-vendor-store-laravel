@@ -47,6 +47,11 @@ class Category extends Model
         return $this->belongsTo(Category::class, 'parent_id');
     }
 
+    public function children()
+    {
+        return $this->hasMany(Category::class, 'parent_id');
+    }
+
     public function scopeActive(Builder $builder)
     {
         return $builder->where('status', 'active');
@@ -73,5 +78,10 @@ class Category extends Model
         $builder->when($filters['status'] ?? false, function ($builder, $status) {
             $builder->where('status', $status);
         });
+    }
+
+    public function products()
+    {
+        return $this->hasMany(Product::class);
     }
 }
