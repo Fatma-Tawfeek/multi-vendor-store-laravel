@@ -2,7 +2,7 @@
     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
       @foreach ($items as $item)
       <li class="nav-item">
-        <a href="{{ route($item['route']) }}" class="nav-link {{ $item['route'] == request()->route()->getName() ? 'active' : '' }}">
+        <a href="{{ route($item['route']) }}" class="nav-link {{ request()->is($item['url']) ? 'active' : '' }}">
           <i class="{{ $item['icon'] }}"></i>
           <p>
             {{ $item['title'] }}

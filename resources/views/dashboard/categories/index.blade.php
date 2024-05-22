@@ -75,7 +75,7 @@
                                             @method('delete')
                                             <button type="submit" class="btn btn-danger">Delete</button>
                                         </form>
-                                        <a href="{{ route('dashboard.categories.show', $cat->id) }}" class="btn btn-info ml-2"> Show</a>
+                                        <a href="{{ route('dashboard.categories.show', $cat->id) }}" class="btn btn-info ml-2"> Show Products</a>
                                     </div>
                                 </td>
                             </tr>      
