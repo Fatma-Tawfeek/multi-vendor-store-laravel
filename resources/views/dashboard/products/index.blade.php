@@ -52,7 +52,7 @@
                                 <td>{{ $products->firstItem() + $key }}</td>
                                 <td>
                                   @if ($product->image)
-                                  <img src="{{ asset( $product->image) }}" height="50" alt="">
+                                  <img src="{{ asset( 'storage/' . $product->image) }}" height="50" alt="">
                                   @endif
                                 </td>
                                 <td>{{ $product->name }}</td>
@@ -62,7 +62,7 @@
                                 <td>
                                     @if ($product->status == 'active')
                                         <span class="badge badge-success">Active</span>
-                                    @elseif($condition == 'draft')
+                                    @elseif($product->status == 'draft')
                                         <span class="badge badge-warning">Draft</span>
                                     @else
                                         <span class="badge badge-danger">Archived</span>
@@ -89,13 +89,6 @@
                     </div>
                     <!-- /.card-body -->
                     <div class="card-footer clearfix">
-                      {{-- <ul class="pagination pagination-sm m-0 float-right">
-                        <li class="page-item"><a class="page-link" href="#">«</a></li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item"><a class="page-link" href="#">»</a></li>
-                      </ul> --}}
                       {{ $products->withQueryString()->links() }}
                     </div>
                   </div>
