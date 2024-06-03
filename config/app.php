@@ -197,6 +197,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Bezhanov\Faker\Laravel\FakerServiceProvider::class,
+        App\Providers\CartServiceProvider::class,
 
     ],
 
