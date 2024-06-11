@@ -8,6 +8,12 @@ use Illuminate\Http\Request;
 
 class CartController extends Controller
 {
+    protected $cart;
+
+    public function __construct(CartRepository $cart)
+    {
+        $this->cart = $cart;
+    }
     /**
      * Display a listing of the resource.
      */
@@ -34,21 +40,19 @@ class CartController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, CartRepository $cart)
+    public function update(Request $request, $id)
     {
         $request->validate([
-            'product' => 'required|exists:products,id',
             'quantity' => 'required|integer|min:1',
         ]);
-        $product = \App\Models\Product::findOrFail($request->product_id);
-        $cart->update($product, $request->quantity);
+        $this->cart->update($id,  $request->quantity);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(CartRepository $cart, string $id)
+    public function destroy($id)
     {
-        $cart->delete($id);
+        $this->cart->delete($id);
     }
 }

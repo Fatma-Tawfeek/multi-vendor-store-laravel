@@ -11,7 +11,7 @@ interface CartRepository
 
     public function add(Product $product, int $quantity = 1): void;
 
-    public function update(Product $product, int $quantity): void;
+    public function update($id, int $quantity): void;
 
     public function delete($id): void;
 
