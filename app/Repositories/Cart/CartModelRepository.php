@@ -35,6 +35,8 @@ class CartModelRepository implements CartRepository
                 'product_id' => $product->id,
                 'quantity' => $quantity,
             ]);
+
+            return;
         }
 
         $item->increment('quantity', $quantity);
