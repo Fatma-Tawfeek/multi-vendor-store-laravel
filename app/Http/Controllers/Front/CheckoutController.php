@@ -59,6 +59,8 @@ class CheckoutController extends Controller
             $cart->empty();
 
             DB::commit();
+
+            event('order.created', $order);
         } catch (\Exception $e) {
             DB::rollBack();
             throw $e;

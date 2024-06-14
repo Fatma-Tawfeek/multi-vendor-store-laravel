@@ -18,6 +18,10 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+        'order.created' => [
+            \App\Listeners\DeductProductQuantity::class,
+            \App\Listeners\EmptyCart::class
+        ]
     ];
 
     /**
