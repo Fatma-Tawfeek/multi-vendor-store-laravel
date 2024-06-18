@@ -43,6 +43,11 @@ class Order extends Model
         return $this->hasMany(OrderAddress::class);
     }
 
+    public function billingAddress()
+    {
+        return $this->hasOne(OrderAddress::class)->where('type', 'billing');
+    }
+
     protected static function booted()
     {
         static::creating(function ($order) {
