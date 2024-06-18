@@ -29,7 +29,7 @@ class OrderCreatedNotification extends Notification
      */
     public function via(object $notifiable): array
     {
-        return ['mail'];
+        return ['mail', 'database'];
 
         $channels = ['database'];
 
@@ -61,6 +61,15 @@ class OrderCreatedNotification extends Notification
             ->line('Thank you for using our application!')
             // ->view('emails.order_created', ['order' => $this->order])
         ;
+    }
+
+    public function toDatabase(object $notifiable): array
+    {
+        return [
+            'body' => 'New Order #' . $this->order->number . ' has been created by ' . $this->order->billingAddress->name . 'from ' . $this->order->billingAddress->country_name,
+            'icon' => 'fas fa-shopping-cart',
+            'url' => url('/dashboard')
+        ];
     }
 
     /**
