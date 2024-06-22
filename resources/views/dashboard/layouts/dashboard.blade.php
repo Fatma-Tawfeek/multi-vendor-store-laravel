@@ -280,6 +280,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <!-- AdminLTE App -->
     <script src="{{ asset('dist/js/adminlte.min.js') }}"></script>
+    <script>
+        const userId = "{{ Auth::id() }}";
+    </script>
+    <script src="{{ asset('build/assets/app-9c177c1e.js') }}"></script>
+
     @stack('scripts')
 </body>
 
