@@ -13,7 +13,7 @@ class AuthenticateUser
 
         $user = Admin::where('username', $username)
             ->orWhere('email', $username)
-            ->orWhere('phone_number', $username)
+            ->orWhere('phone', $username)
             ->where('password', $request->post('password'))
             ->first();
 
